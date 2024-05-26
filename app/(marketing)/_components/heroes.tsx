@@ -9,7 +9,13 @@ export const Heroes = () => {
                 src="/documents.svg"
                 fill
                 alt="documents"
-                className="object-contain"
+                className="object-contain dark:hidden"
+                />
+                 <Image 
+                src="/documents-dark.svg"
+                fill
+                alt="documents"
+                className="object-contain dark:block hidden"
                 />
                 </div>
                 <div className="relative h-[400px] w-[400px] hidden md:block">
@@ -17,7 +23,13 @@ export const Heroes = () => {
                 src="reading.svg"
                 fill
                 alt="reading"
-                
+                className="dark:hidden"
+                />
+                 <Image 
+                src="/read-dark.png"
+                fill
+                alt="documents"
+                className="object-contain dark:block hidden"
                 />
                 </div>
             </div>
