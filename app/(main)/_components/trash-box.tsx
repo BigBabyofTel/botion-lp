@@ -8,7 +8,7 @@ import { Search, Trash, Undo } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { toast } from "sonner";
-import { ConfirmModal } from "@/components/ui/modals/confirm-modal";
+import { ConfirmModal } from "@/components/modals/confirm-modal";
 
 export default function TrashBox() {
   const router = useRouter();
@@ -90,14 +90,14 @@ export default function TrashBox() {
               <div
                 onClick={(e) => onRestore(e, document._id)}
                 role="button"
-                className="rounded-sm p-2 hover:bg-neutral-200"
+                className="rounded-sm p-2 hover:bg-neutral-200 dark:hover:bg-neutral-600"
               >
                 <Undo className="h-4 w-4 text-muted-foreground" />
               </div>
               <ConfirmModal onConfirm={() => onRemove(document._id)}>
                 <div
                   role="button"
-                  className="rounded-sm p-2 hover:bg-neutral-200"
+                  className="rounded-sm p-2 hover:bg-neutral-200 dark:hover:bg-neutral-600"
                 >
                   <Trash className="h-4 w-4 text-muted-foreground" />
                 </div>

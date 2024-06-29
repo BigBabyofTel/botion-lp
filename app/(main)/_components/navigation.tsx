@@ -10,10 +10,12 @@ import {
   Settings,
   Trash,
 } from "lucide-react";
-import { usePathname } from "next/navigation";
+import { useParams, usePathname } from "next/navigation";
 import { ElementRef, use, useEffect, useRef, useState } from "react";
 import { useMediaQuery } from "usehooks-ts";
 import UserItem from "./user-item";
+import { useSearch } from "@/hooks/use-search";
+import { useSettings } from "@/hooks/use-settings";
 
 import {
   Popover,
@@ -27,8 +29,12 @@ import Item from "./item";
 import { toast } from "sonner";
 import DocumentList from "./document-list";
 import TrashBox from "./trash-box";
+import Navbar from "./navbar";
 
 export default function Navigation() {
+  const settings = useSettings();
+  const search = useSearch();
+  const params = useParams();
   const pathname = usePathname();
   const isMobile = useMediaQuery("(max-width: 768px)");
 
@@ -146,8 +152,8 @@ export default function Navigation() {
         </div>
         <div>
           <UserItem />
-          <Item label="search" icon={Search} isSearch onClick={() => {}} />
-          <Item label="setting" icon={Settings} onClick={() => {}} />
+          <Item label="search" icon={Search} isSearch onClick={search.onOpen} />
+          <Item label="setting" icon={Settings} onClick={settings.onOpen} />
           <Item onClick={handleCreate} label="New Page" icon={PlusCircle} />
         </div>
         <div className="mt-4">
@@ -179,15 +185,19 @@ export default function Navigation() {
           isMobile && "left-0 w-full"
         )}
       >
-        <nav className="bg-transparent px-3 py-2 w-full">
-          {isCollapsed && (
-            <MenuIcon
-              onClick={resetWidth}
-              role="button"
-              className="h-6 w-6 text-muted-foreground"
-            />
-          )}
-        </nav>
+        {!!params.documentId ? (
+          <Navbar isCollapsed={isCollapsed} onResetWidth={resetWidth} />
+        ) : (
+          <nav className="bg-transparent px-3 py-2 w-full">
+            {isCollapsed && (
+              <MenuIcon
+                onClick={resetWidth}
+                role="button"
+                className="h-6 w-6 text-muted-foreground"
+              />
+            )}
+          </nav>
+        )}
       </div>
     </>
   );
