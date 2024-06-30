@@ -37,6 +37,7 @@ export default function Navigation() {
   const params = useParams();
   const pathname = usePathname();
   const isMobile = useMediaQuery("(max-width: 768px)");
+  const width = isMobile ? "w-full" : `calc(100% - 240px)`;
 
   const create = useMutation(api.documents.create);
 
@@ -80,13 +81,14 @@ export default function Navigation() {
 
     if (sidebarRef.current && navbarRef.current) {
       sidebarRef.current.style.width = `${newWidth}px`;
-      navbarRef.current.style.setProperty("left", `{newWidth}px`);
+      navbarRef.current.style.setProperty("left", `${newWidth}px`);
       navbarRef.current.style.setProperty(
         "width",
         `calc(100% - ${newWidth}px)`
       );
     }
   };
+  
   const handleMouseUp = () => {
     isResizingRef.current = false;
     document.removeEventListener("mousemove", handleMouseMove);
@@ -101,7 +103,7 @@ export default function Navigation() {
       sidebarRef.current.style.width = isMobile ? "100%" : "240px";
       navbarRef.current.style.setProperty(
         "width",
-        isMobile ? "0px" : "calc(100% - 240px)"
+        isMobile ? "0" : "calc(100% - 240px)"
       );
       navbarRef.current.style.setProperty("left", isMobile ? "100%" : "240px");
       setTimeout(() => setIsResetting(false), 300);
@@ -152,13 +154,13 @@ export default function Navigation() {
         </div>
         <div>
           <UserItem />
-          <Item label="search" icon={Search} isSearch onClick={search.onOpen} />
-          <Item label="setting" icon={Settings} onClick={settings.onOpen} />
-          <Item onClick={handleCreate} label="New Page" icon={PlusCircle} />
+          <Item label="Search" icon={Search} isSearch onClick={search.onOpen} />
+          <Item label="Settings" icon={Settings} onClick={settings.onOpen} />
+          <Item onClick={handleCreate} label="New page" icon={PlusCircle} />
         </div>
         <div className="mt-4">
           <DocumentList />
-          <Item onClick={handleCreate} label="Add a Page" icon={Plus} />
+          <Item onClick={handleCreate} icon={Plus} label="Add a page" />
           <Popover>
             <PopoverTrigger className="w-full mt-4">
               <Item label="Trash" icon={Trash} />
