@@ -50,9 +50,9 @@ export default function TrashBox() {
       error: "Failed to delete document",
     });
 
-    if (params.documentId === documentId) {
+   
       router.push("/documents");
-    }
+    
   };
 
   if (documents === undefined) {
