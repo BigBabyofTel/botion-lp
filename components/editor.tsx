@@ -31,11 +31,12 @@ export default function Editor({
     });
     return response.url;
   };
+ 
+  let data = initialContent ? JSON.parse(initialContent) as PartialBlock[] : undefined
 
   const editor: BlockNoteEditor = useCreateBlockNote({
-    initialContent: initialContent
-      ? (JSON.parse(initialContent) as PartialBlock[])
-      : undefined,
+    initialContent: data,
+    uploadFile: handleUpload,
   });
 
   return (

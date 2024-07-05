@@ -46,7 +46,10 @@ export default function Item({
     ) => {
       event.stopPropagation();
       if (!id) return;
-      const promise = archive({id});
+      const promise = archive({id})
+      .then(() => {
+        router.push("/documents/")
+      });
       toast.promise(promise, {
         loading: "Archiving...",
         success: "Document moved to Trash!",
@@ -70,8 +73,10 @@ export default function Item({
         .then((documentId) => {
             if (!expanded) {
                 onExpand?.();
+            } else {
+              router.push(`/documents/${documentId}`)
             }
-           // router.push(`/documents/${documentId}`)
+          
         });
 
         toast.promise(promise,{
