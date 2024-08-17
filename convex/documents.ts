@@ -235,15 +235,21 @@ export const getById = query({
 
     const document = await ctx.db.get(args.documentId);
 
-    if (!document) throw new Error("Not Found");
+    if (!document) {
+      throw new Error("Not Found");
+    }
 
-    if (document.isPublished && !document.isArchived) return document;
-
-    if (!identity) throw new Error("Not authenticated");
-
+    if (document.isPublished && !document.isArchived) {
+      return document;
+    }
+    if (!identity) {
+      throw new Error("Not authenticated");
+    }
     const userId = identity.subject;
 
-    if (document.userId !== userId) throw new Error("Unauthorized");
+    if (document.userId !== userId) {
+      throw new Error("Unauthorized");
+    }
 
     return document;
   },
@@ -295,7 +301,6 @@ export const removeIcon = mutation({
     if (!existingDocument) throw new Error("Not Found");
 
     if (existingDocument.userId !== userId) throw new Error("Unauthorized");
-    
 
     const document = await ctx.db.patch(args.id, {
       icon: undefined,
@@ -316,7 +321,7 @@ export const removeCoverImage = mutation({
     if (existingDocument.userId !== userId) throw new Error("Unauthorized");
     const document = await ctx.db.patch(args.id, {
       coverImage: undefined,
-    })
-    return document
-}
-})
+    });
+    return document;
+  },
+});

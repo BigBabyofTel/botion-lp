@@ -32,7 +32,7 @@ import TrashBox from "./trash-box";
 import Navbar from "./navbar";
 
 export default function Navigation() {
-  const router = useRouter()
+  const router = useRouter();
   const settings = useSettings();
   const search = useSearch();
   const params = useParams();
@@ -89,7 +89,7 @@ export default function Navigation() {
       );
     }
   };
-  
+
   const handleMouseUp = () => {
     isResizingRef.current = false;
     document.removeEventListener("mousemove", handleMouseMove);
@@ -124,9 +124,8 @@ export default function Navigation() {
   };
 
   const handleCreate = () => {
-    const promise = create({ title: "Untitled" })
-    .then((documentId) => {
-      router.push(`/documents/${documentId}`)
+    const promise = create({ title: "Untitled" }).then((documentId) => {
+      router.push(`/documents/${documentId}`);
     });
 
     toast.promise(promise, {

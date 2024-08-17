@@ -5,22 +5,26 @@ import { useUser } from "@clerk/clerk-react";
 import { Button } from "@/components/ui/button";
 import { PlusCircle } from "lucide-react";
 import { useMutation } from "convex/react";
-import { api } from "@/convex/_generated/api"
+import { api } from "@/convex/_generated/api";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 export default function DocumentsPage() {
+  const router = useRouter();
   const { user } = useUser();
-  const create = useMutation(api.documents.create)
+  const create = useMutation(api.documents.create);
 
   const onCreate = () => {
-    const promise = create({ title: "untitled" });
+    const promise = create({ title: "untitled" }).then((documentId) =>
+      router.push(`/documents/${documentId}`)
+    );
 
     toast.promise(promise, {
       loading: "Creatign a new note...",
       success: "New note created!",
       error: "Failed to create a new note.",
-    })
-  }
+    });
+  };
 
   return (
     <div className="h-full flex flex-col items-center justify-center space-y-4">
