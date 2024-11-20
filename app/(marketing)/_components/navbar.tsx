@@ -29,6 +29,14 @@ export const Navbar = () => {
       <Logo />
       <div className="md:ml-auto md:justify-end justify-between w-full flex items-center gap-x-2">
         {isLoading && <Spinner />}
+        
+          <SignOutButton>
+              <Button variant="ghost" size="sm">
+                sign Out
+              </Button>
+            </SignOutButton>
+    
+       
         {!isAuthenticated && !isLoading && (
           <>
             <SignInButton mode="modal">
